@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.willcompany</groupId>
 	<artifactId>movies-api</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<name>movies-api</name>
 	<description>movies API with Spring Boot</description>
 	<properties>
