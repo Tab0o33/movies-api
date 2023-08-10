@@ -5,39 +5,64 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
-@Entity // This tells Hibernate to make a table out of this class
+@Entity
 public class Movie {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Integer id;
+	private String title;
+	private String imageUrl;
+	private String description;
+	private int myRating;
+	private int publicRating;
 
-    private String title;
+	public Integer getId() {
+		return id;
+	}
 
-    private String imageUrl;
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public Integer getId() {
-        return id;
-    }
+	public String getTitle() {
+		return title;
+	}
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	public void setTitle(String title) {
+		this.title = title;
+	}
 
-    public String getTitle() {
-        return title;
-    }
+	public String getImageUrl() {
+		return imageUrl;
+	}
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
 
-    public String getImageUrl() {
-        return imageUrl;
-    }
+	public String getDescription() {
+		return description;
+	}
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public int getMyRating() {
+		return myRating;
+	}
+
+	public void setMyRating(int myRating) {
+		this.myRating = myRating;
+	}
+
+	public int getPublicRating() {
+		return publicRating;
+	}
+
+	public void setPublicRating(int publicRating) {
+		this.publicRating = publicRating;
+	}
 
 }
