@@ -26,7 +26,7 @@ import com.willcompany.moviesapi.utils.JwtUtils;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200", allowCredentials = "true")
-@RequestMapping("/api/v1/auth")
+@RequestMapping("/api/v1/public/auth")
 public class AuthController {
 
 	@Autowired

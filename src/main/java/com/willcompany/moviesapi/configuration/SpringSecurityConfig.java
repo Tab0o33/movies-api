@@ -11,8 +11,10 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.willcompany.moviesapi.service.UserDetailsServiceImpl;
+import com.willcompany.moviesapi.utils.AuthTokenFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -22,16 +24,21 @@ public class SpringSecurityConfig {
 	UserDetailsServiceImpl userDetailsService;
 
 	@Bean
+	public AuthTokenFilter authenticationJwtTokenFilter() {
+		return new AuthTokenFilter();
+	}
+
+	@Bean
 	public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
 		return authConfig.getAuthenticationManager();
 	}
 
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-		http.csrf().disable().authorizeHttpRequests().requestMatchers("/api/v1/auth/**").permitAll()
-				.requestMatchers("/affiches_movies/**").permitAll().requestMatchers("/movies").permitAll().anyRequest()
-				.authenticated();
+		http.csrf().disable().authorizeHttpRequests().requestMatchers("/api/v1/public/**").permitAll()
+				.requestMatchers("/api/v1/authenticated/**").authenticated();
 		http.authenticationProvider(authenticationProvider());
+		http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 		return http.build();
 	}
 

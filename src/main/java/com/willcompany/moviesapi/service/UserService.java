@@ -23,6 +23,10 @@ public class UserService {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
+	public Iterable<User> getUsers() {
+		return userRepository.findAll();
+	}
+
 	public Optional<User> getUser(final Integer id) {
 		return userRepository.findById(id);
 	}
