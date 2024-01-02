@@ -1,10 +1,16 @@
 package com.willcompany.moviesapi.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import lombok.Data;
 
+@Data
 @Entity
 public class Movie {
 
@@ -14,55 +20,9 @@ public class Movie {
 	private String title;
 	private String imageUrl;
 	private String description;
-	private int myRating;
-	private int publicRating;
+	private Float publicRating;
 
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public String getImageUrl() {
-		return imageUrl;
-	}
-
-	public void setImageUrl(String imageUrl) {
-		this.imageUrl = imageUrl;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public int getMyRating() {
-		return myRating;
-	}
-
-	public void setMyRating(int myRating) {
-		this.myRating = myRating;
-	}
-
-	public int getPublicRating() {
-		return publicRating;
-	}
-
-	public void setPublicRating(int publicRating) {
-		this.publicRating = publicRating;
-	}
+	@OneToMany // (mappedBy = "movie")
+	private List<UserMovie> userMovies = new ArrayList<>();
 
 }

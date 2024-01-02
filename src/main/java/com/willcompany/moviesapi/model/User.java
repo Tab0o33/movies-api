@@ -1,10 +1,14 @@
 package com.willcompany.moviesapi.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
@@ -30,5 +34,8 @@ public class User {
 
 	@NotBlank(message = "lastName is required")
 	private String lastName;
+
+	@OneToMany
+	private List<UserMovie> userMovies = new ArrayList<>();
 
 }

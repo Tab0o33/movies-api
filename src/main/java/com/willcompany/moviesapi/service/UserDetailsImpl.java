@@ -8,6 +8,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.willcompany.moviesapi.model.User;
 
+import lombok.Data;
+
+@Data
 public class UserDetailsImpl implements UserDetails {
 	private static final long serialVersionUID = 1L;
 
@@ -38,6 +41,10 @@ public class UserDetailsImpl implements UserDetails {
 	public String getUsername() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public Integer getId() {
+		return this.id;
 	}
 
 	public String getEmail() {
