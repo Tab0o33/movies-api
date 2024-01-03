@@ -6,13 +6,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.willcompany.moviesapi.model.UserMovie;
 import com.willcompany.moviesapi.model.UserMovieDTO;
+import com.willcompany.moviesapi.model.UserMoviePatchDTO;
 import com.willcompany.moviesapi.service.UsermovieService;
 import com.willcompany.moviesapi.utils.JwtUtils;
 
@@ -70,6 +73,15 @@ public class UserMovieController {
 		} else {
 			return ResponseEntity.badRequest().body("Unknown movie id");
 		}
+	}
+
+	@PatchMapping("/authenticated/user/me/movies/{id}")
+	public ResponseEntity<Void> updateUserMovieByMovieId(HttpServletRequest request, @PathVariable Integer id,
+			@RequestBody UserMoviePatchDTO patchDTO) {
+		String jwt = jwtUtils.getJwtFromCookies(request);
+		int userId = jwtUtils.getUserIdFromJwtToken(jwt);
+		userMovieService.updateUserMovieByMovieId(userId, id, patchDTO);
+		return ResponseEntity.noContent().build();
 	}
 
 }

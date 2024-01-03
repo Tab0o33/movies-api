@@ -1,6 +1,7 @@
 package com.willcompany.moviesapi.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -28,5 +29,7 @@ public interface UserMovieRepository extends CrudRepository<UserMovie, UserMovie
 
 	@Query(value = getUserMovieDTOByIds, nativeQuery = true)
 	List<Object[]> getUserMovieDTOByIds(@Param("userId") Integer userId, @Param("movieId") Integer movieId);
+
+	Optional<UserMovie> findByMovieIdAndUserId(int movieId, int userId);
 
 }
