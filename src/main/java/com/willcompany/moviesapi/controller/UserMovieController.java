@@ -1,8 +1,12 @@
 package com.willcompany.moviesapi.controller;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -36,9 +40,8 @@ public class UserMovieController {
 	}
 
 	/**
-	 * Read - Get all UserMovieDTO for one user
+	 * Read - Get all UserMovieDTO for the token's user
 	 * 
-	 * @param id      - The id of the user
 	 * @param toWatch - Can be used with true value to filter on only movies the
 	 *                user wants to watch (optional)
 	 * @return - An Iterable object of UserMovieDTO full filled
@@ -49,6 +52,24 @@ public class UserMovieController {
 		String jwt = jwtUtils.getJwtFromCookies(request);
 		int userId = jwtUtils.getUserIdFromJwtToken(jwt);
 		return userMovieService.getUserMoviesDTOByUserId(userId, toWatch);
+	}
+
+	/**
+	 * Read - Get one UserMovieDTO for the token's user
+	 * 
+	 * @param id - The id of the movie
+	 * @return - An object UserMovieDTO full filled
+	 */
+	@GetMapping("/authenticated/user/me/movies/{id}")
+	public ResponseEntity<?> getUserMovieDTOByIds(HttpServletRequest request, @PathVariable Integer id) {
+		String jwt = jwtUtils.getJwtFromCookies(request);
+		int userId = jwtUtils.getUserIdFromJwtToken(jwt);
+		Optional<UserMovieDTO> userMovieDTO = userMovieService.getUserMovieDTOByIds(userId, id);
+		if (userMovieDTO != null) {
+			return ResponseEntity.ok().body(userMovieDTO.get());
+		} else {
+			return ResponseEntity.badRequest().body("Unknown movie id");
+		}
 	}
 
 }
